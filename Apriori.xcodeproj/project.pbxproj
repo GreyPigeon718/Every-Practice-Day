@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		D67D1454272E8CE8004C8444 /* Apriori */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Apriori; sourceTree = BUILT_PRODUCTS_DIR; };
 		D67D1457272E8CE8004C8444 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		D67D145F272E8E5F004C8444 /* Apriori.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Apriori.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				D67D1457272E8CE8004C8444 /* main.cpp */,
+				D67D145F272E8E5F004C8444 /* Apriori.h */,
 			);
 			path = Apriori;
 			sourceTree = "<group>";
