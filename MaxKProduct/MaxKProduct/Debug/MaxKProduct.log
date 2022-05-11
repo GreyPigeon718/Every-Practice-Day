@@ -1,0 +1,8 @@
+﻿  MaxKProcuct.cpp
+C:\Users\竹洋\source\repos\MaxKProduct\MaxKProduct\MaxKProcuct.cpp(73,24): warning C4101: “tk”: 未引用的局部变量
+C:\Users\竹洋\source\repos\MaxKProduct\MaxKProduct\MaxKProcuct.cpp(73,15): warning C4101: “t”: 未引用的局部变量
+C:\Users\竹洋\source\repos\MaxKProduct\MaxKProduct\MaxKProcuct.cpp(73,18): warning C4101: “maxv”: 未引用的局部变量
+C:\Users\竹洋\source\repos\MaxKProduct\MaxKProduct\MaxKProcuct.cpp(113,12): warning C4101: “j”: 未引用的局部变量
+C:\Users\竹洋\source\repos\MaxKProduct\MaxKProduct\MaxKProcuct.cpp(113,9): warning C4101: “i”: 未引用的局部变量
+C:\Users\竹洋\source\repos\MaxKProduct\MaxKProduct\MaxKProcuct.cpp(155,1): warning C4326: “main”的返回类型应为“int”而非“void”
+  MaxKProduct.vcxproj -> C:\Users\竹洋\source\repos\MaxKProduct\Debug\MaxKProduct.exe
