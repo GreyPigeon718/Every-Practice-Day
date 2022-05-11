@@ -77,9 +77,10 @@ int CalcMaxKProduct(int* I, int n, int k, int** D, int** P)
     // D[i][j]:表示I的第i位数字到第j为数字
     // P[i][j]:表示I的前i位数字分成k段的最大乘积
     if (n < k)
-        return 0;
-    if (k == 1)
-        return n;
+    {
+        printf("\terror n < k");
+        return -1;
+    }
 
 
     for (int i = 1; i <= n; ++i)
@@ -99,10 +100,10 @@ int CalcMaxKProduct(int* I, int n, int k, int** D, int** P)
             {
                 P[i][j] = D[1][i]; continue;
             }
-            // P[i][j] = max(P[i][j+1] , P[tk][j - 1] * D[tk + 1][i])
+            // P[i][j] = max(P[i][j] , P[tk][j - 1] * D[tk + 1][i])
             for (int tk = 1; tk < i; tk++)
             {
-                P[i][j] = P[i][j+1] > P[tk][j - 1] * D[tk + 1][i] ? P[i][j] : P[tk][j - 1] * D[tk + 1][i];
+                P[i][j] = P[i][j] > P[tk][j - 1] * D[tk + 1][i] ? P[i][j] : P[tk][j - 1] * D[tk + 1][i];
             }
         }
     }
@@ -232,7 +233,8 @@ void main(void)
 
                 // 计算最大 'k' 乘积 ...
                 MaxProduct = CalcMaxKProduct(I, n, k, D, P);
-
+                if (MaxProduct == -1)
+                    return;
                 // 显示计算结果 ...
                 printf("\n\t< 计算得到的最大 k 乘积为：%d > \n\n", MaxProduct);
 
