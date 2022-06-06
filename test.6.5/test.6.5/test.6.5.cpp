@@ -1,115 +1,35 @@
-//#include <iostream>
-//
-//using namespace std;
-//
-////class A {
-////	;
-////};
-////A :: ~A()
-////{
-////	delete this;
-////	this = NULL;
-////}
-//
-//void func(const int& v1, const int& v2)
-//{
-//    std::cout << v1 << ' ';
-//    std::cout << v2 << ' ';
-//}
-//
-//struct st_task
-//{
-//    uint16_t id;
-//    uint32_t value;
-//    uint64_t timestamp;
-//};
-//
-//void fool()
-//{
-//    st_task task = {};
-//    uint64_t a = 0x00010001;
-//    memcpy(&task, &a, sizeof(uint64_t));
-//    printf("%11u,%11u,%11u", task.id, task.value, task.timestamp);
-//}
-//int main()
-//{
-//    int i = 0;
-//    //func(++i, i++);
-//    fool();
-//    return 0;
-//}
-//#include "stdio.h"
-//class Base
-//{
-//public:
-//    int Bar(char x)
-//    {
-//        return (int)(x);
-//    }
-//    virtual int Bar(int x)
-//    {
-//        return (2 * x);
-//    }
-//};
-//class Derived : public Base
-//{
-//public:
-//    int Bar(char x)
-//    {
-//        return (int)(-x);
-//    }
-//    int Bar(int x)
-//    {
-//        return (x / 2);
-//    }
-//};
-//int main(void)
-//{
-//    Derived Obj;
-//    Base* pObj = &Obj;
-//    printf("%d,", pObj->Bar((char)(100)));
-//    printf("%d,", pObj->Bar(100));
-//}
+//> 岛屿的最大面积
 
-//二进制插入
-//#include <iostream>
-//
-//using namespace std;
-//int main()
-//{
-//    int n, m, j, i;
-//    cin >> n >> m >> j >> i;
-//    m = m << j;
-//    n |= m;
-//    cout << n << endl;
-//    return 0;
-//}
-//查找组成一个偶数最接近的两个素数
-#include <iostream>
-
-using namespace std;
-bool prime(int x)
+int getArea(vector<vector<int>>& grid, int i, int j)
 {
-	for (int i = 2; i < x / 2; ++i)
-	{
-		if (x % i == 0)
-			return false;
-	}
-	return true;
+    //由于坐标每次 +1 ，所以判断是否等于数组长度即可
+    if (i == grid.size() || i < 0)
+        return 0;
+    else if (j == grid[0].size() || j < 0)
+        return 0; ;
+    if (grid[i][j] == 1)
+    {
+        grid[i][j] = 0;
+        return 1 + getArea(grid, i + 1, j) + getArea(grid, i - 1, j) + getArea(grid, i, j + 1) + getArea(grid, i, j - 1);
+    }
+    return 0;
 }
-int main()
-{
-	int num;
-	while (cin >> num)
-	{
 
-		int x = num / 2;
-		while (!(prime(x) && prime(num - x)))
-		{
-			x--;
-		}
-		cout << x << endl;
-		cout << num - x << endl;
-	}
-	return 0;
-}
+public:
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        int maxArea = 0;
+        int area = 0;
+        for (int i = 0; i < grid.size(); i++)
+        {
+            for (int j = 0; j < grid[0].size(); j++)
+            {
+                if (grid[i][j] == 1)
+                {
+                    //以此为中心，向四周扩散
+                    area = getArea(grid, i, j);
+                    maxArea = maxArea > area ? maxArea : area;
+                }
+            }
+        }
+        return maxArea;
+    }
