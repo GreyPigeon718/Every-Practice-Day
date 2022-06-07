@@ -1,40 +1,22 @@
-//跳石板
-#include <iostream>
-#include <vector>
+//> K 站中转内最便宜的航班
+class Solution {
+private:
+    static constexpr int INF = 10000 * 101 + 1;
 
-using namespace std;
-
-int main()
-{
-	int m, n;
-	cin >> m >> n;
-	vector<int> v(n+1, 0);
-	v[m] = 1;
-	for (int i = m; i < n; ++i)
-	{
-		vector<int> vv;
-		if (v[i] == 0)
-			continue;
-		for (int k = 2; k <= sqrt(i); k++)
-		{
-			if (i % k == 0)
-			{
-				vv.push_back(k);
-				if (i / k != k)
-					vv.push_back(i / k);
-			}
-		}
-		for (int j = 0; j < vv.size(); ++j)
-		{
-			if ((vv[j] + i) <= n && v[vv[j] + i] != 0)
-				v[vv[j] + i] = min(v[vv[j] + i], v[i] + 1);
-			else if ((vv[j] + i) <= n)
-				v[vv[j] + i] = v[i] + 1;
-		}
-	}
-	if (v[n] == 0)
-		cout << -1 << endl;
-	else
-		cout << v[n] - 1 << endl;
-	return 0;
-}
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        vector<vector<int>> f(k + 2, vector<int>(n, INF));
+        f[0][src] = 0;
+        for (int t = 1; t <= k + 1; ++t) {
+            for (auto&& flight : flights) {
+                int j = flight[0], i = flight[1], cost = flight[2];
+                f[t][i] = min(f[t][i], f[t - 1][j] + cost);
+            }
+        }
+        int ans = INF;
+        for (int t = 1; t <= k + 1; ++t) {
+            ans = min(ans, f[t][dst]);
+        }
+        return (ans == INF ? -1 : ans);
+    }
+};
