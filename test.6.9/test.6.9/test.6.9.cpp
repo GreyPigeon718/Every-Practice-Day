@@ -1,245 +1,61 @@
-#define _CRT_SECURE_NO_WARNINGS 1
-//#include <iostream>
-//#include <string>
-//
-//using namespace std;
-//class A
-//{
-//public:
-//    A()
-//    {
-//        printf("A ");
-//    }
-//
-//    ~A()
-//    {
-//        printf("deA ");
-//    }
-//};
-//
-//class B
-//{
-//public:
-//    B()
-//    {
-//        printf("B ");
-//    }
-//    ~B()
-//    {
-//        printf("deB ");
-//    }
-//};
-//
-//class C : public A, public B
-//{
-//public:
-//    C()
-//    {
-//        printf("C ");
-//    }
-//    ~C()
-//    {
-//        printf("deC ");
-//    }
-//};
-//static int a = 1;
-//void fun1(void) { a = 2; }
-//void fun2(void) { int a = 3; }
-//void fun3(void) { static int a = 4; }
-//int main(int argc, char** args) {
-//    printf("%d",a);
-//    fun1();
-//    printf("%d", a);
-//
-//    fun2();
-//    printf("%d", a);
-//
-//    fun3();
-//    printf("%d", a);
-//
-//}
-//int main()
-//{
-//    A* a = new C();
-//    delete a;
-//    return 0;
-//}
-//int FindSubString(char* pch)
-//{
-//    int   count = 0;
-//    char* p1 = pch;
-//    while (*p1 != '\0')
-//    {
-//        if (*p1 == p1[1] - 1)
-//        {
-//            p1++;
-//            count++;
-//        }
-//        else {
-//            break;
-//        }
-//    }
-//    int count2 = count;
-//    while (*p1 != '\0')
-//    {
-//        if (*p1 == p1[1] + 1)
-//        {
-//            p1++;
-//            count2--;
-//        }
-//        else {
-//            break;
-//        }
-//    }
-//    if (count2 == 0)
-//        return(count);
-//    return(0);
-//}
-//void ModifyString(char* pText)
-//{
-//    char* p1 = pText;
-//    char* p2 = p1;
-//    while (*p1 != '\0')
-//    {
-//        int count = FindSubString(p1);
-//        if (count > 0)
-//        {
-//            *p2++ = *p1;
-//            sprintf(p2, "%i", count);
-//            while (*p2 != '\0')
-//            {
-//                p2++;
-//            }
-//            p1 += count + count + 1;
-//        }
-//        else {
-//            *p2++ = *p1++;
-//        }
-//    }
-//}
-//void main(void)
-//{
-//    char text[32] = "XYBCDCBABABA";
-//    ModifyString(text);
-//    printf(text);
-//}
-//查找输入整数二进制1的个数
-//#include <iostream>
-//
-//using namespace std;
-//
-//
-//int findNumberOf1(int num)
-//{
-//	int count = 1;
-//	while (num & (num - 1))
-//	{
-//		num &= (num - 1);
-//		count++;
-//	}
-//	return count;
-//}
-//
-//int main()
-//{
-//	int x;
-//	while (cin >> x)
-//	{
-//		int n = findNumberOf1(x);
-//		cout << n << endl;
-//	}
-//	return 0;
-//}
-//手套
-//int findMinimum(int n, vector<int> left, vector<int> right) {
-//    // write code here
-//    int sum = 0;
-//    int leftSum = 0, rightSum = 0;
-//    int leftMin = INT_MAX, rightMin = INT_MAX;
-//    for (int i = 0; i < n; i++)
-//    {
-//        if (left[i] * right[i] == 0)
-//            sum += (left[i] + right[i]);
-// 
-//        else
-//        {
-//            leftSum += left[i];
-//            rightSum += right[i];
-//            leftMin = min(leftMin, left[i]);
-//            rightMin = min(rightMin, right[i]);
-//        }
-//    }
-//    return sum + min(leftSum - leftMin + 1, rightSum - rightMin + 1) + 1;
-//}
-//#include<iostream>
-//using namespace std;
-//
-//class Base
-//{
-//public:
-//    virtual int foo(int x)
-//    {
-//        return x * 10;
-//    }
-//
-//    int foo(char x[14])
-//    {
-//        return sizeof(x) + 10;
-//    }
-//};
-//
-//class Derived : public Base
-//{
-//    int foo(int x)
-//    {
-//        return x * 20;
-//    }
-//
-//    virtual int foo(char x[10])
-//    {
-//        return sizeof(x) + 20;
-//    }
-//};
-//
-//int main()
-//{
-//    Derived stDerived;
-//    Base* pstBase = &stDerived;
-//
-//    char x[10];
-//    printf("%d\n", pstBase->foo(100) + pstBase->foo(x));
-//
-//    return 0;
-//}
-//完全数
-#include <iostream>
- 
-using namespace std;
+//> 二叉树层序遍历
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if (root == nullptr)
+            return {};
+        queue<TreeNode*> qe;
+        qe.push(root);
+        vector<vector<int>> res;
+        while (!qe.empty())
+        {
+            int size = qe.size();
+            vector<int> v;
+            for (int i = 0; i < size; ++i)
+            {
+                TreeNode* Node = qe.front();
+                qe.pop();
+                v.push_back(Node->val);
+                if (Node->left)
+                    qe.push(Node->left);
+                if (Node->right)
+                    qe.push(Node->right);
+            }
+            res.push_back(v);
+        }
+        return res;
+    }
+};
 
-bool perfectnum(int x)
-{
-	int sum = 0;
-	for (int i = 1; i < x; ++i)
-	{
-		if (x % i == 0)
-		{
-			sum += i;
-		}
-	}
-	if (sum == x)
-		return true;
-	return false;
-}
-int main()
-{
-	int x;
-	cin >> x;
-	int count = 0;
-	for (int i = 1; i < x; ++i)
-	{
-		if (perfectnum(i))
-			count++;
-	}
-	cout << count << endl;
-	return 0;
-}
+//> 二叉搜索树的后序遍历序列
+class Solution {
+public:
+    bool traversal(vector<int>& postorder, int start, int end) {
+        /* 递归终止条件 */
+        if (start >= end) return true;
+        int index = start;
+        /* 中间处理逻辑 */
+        while (postorder[index] < postorder[end]) index++;
+        /* 记录分割点 */
+        int midIndex = index;
+        while (postorder[index] > postorder[end]) index++;
+        /* 递归左右子树 */
+        bool left = traversal(postorder, start, midIndex - 1);
+        bool right = traversal(postorder, midIndex, end - 1);
+        return index == end && left && right;
+    }
+    bool verifyPostorder(vector<int>& postorder) {
+        return traversal(postorder, 0, postorder.size() - 1);
+    }
+};
