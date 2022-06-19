@@ -1,20 +1,22 @@
-//年终奖
-class Bonus {
+//> 二叉搜索树与双向链表
+class Solution {
 public:
-    int getMost(vector<vector<int> > board) {
-        // write code here
-        for (int i = 1; i < 6; ++i)
-        {
-            board[0][i] += board[0][i - 1];
-            board[i][0] += board[i - 1][0];
-        }
-        for (int j = 1; j < 6; ++j)
-        {
-            for (int k = 1; k < 6; ++k)
-            {
-                board[j][k] += board[j - 1][k] > board[j][k - 1] ? board[j - 1][k] : board[j][k - 1];
-            }
-        }
-        return board[5][5];
+    Node* treeToDoublyList(Node* root) {
+        if (root == nullptr) return nullptr;
+        dfs(root);
+        head->left = pre;
+        pre->right = head;
+        return head;
+    }
+private:
+    Node* pre, * head;
+    void dfs(Node* cur) {
+        if (cur == nullptr) return;
+        dfs(cur->left);
+        if (pre != nullptr) pre->right = cur;
+        else head = cur;
+        cur->left = pre;
+        pre = cur;
+        dfs(cur->right);
     }
 };
