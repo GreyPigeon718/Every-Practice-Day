@@ -1,73 +1,29 @@
-//螺旋矩阵
+//> 第 N 位数字
 class Solution {
 public:
-    vector<int> spiralOrder(vector<vector<int> >& matrix) {
-        vector<int> res;
-        if (matrix.empty()) return res;
-        int top = 0, col = matrix.size() - 1;
-        int left = 0, row = matrix[0].size() - 1;
-        while (top < (matrix.size() + 1) / 2 && left < (matrix[0].size() + 1) / 2)
-        {
-            for (int i = left; i <= row; ++i)
-            {
-                res.push_back(matrix[top][i]);
-            }
-            for (int i = top + 1; i <= col; ++i)
-            {
-                res.push_back(matrix[i][row]);
-            }
-            for (int i = row - 1; top != col && i >= left; --i)
-            {
-                res.push_back(matrix[col][i]);
-            }
-            for (int i = col - 1; left != row && i >= top + 1; --i)
-            {
-                res.push_back(matrix[i][left]);
-            }
-            ++top, --col, ++left, --row;
+    int findNthDigit(int n) {
+        long long N = n;
+        int digits = 1; // 位数
+        long long border = 9; // digits位数一共产生多少位数字
+
+        //> 先找到哪个区间
+        while (N) {
+            if (N <= border * digits) break; // 循环退出时即找到了当前数字的位数
+            N -= border * digits; // N 为扣掉所有digits位数字（比如2位数）产生的数字之后还剩多少个数字
+            digits++;
+            border *= 10;
         }
-        return res;
+        // 循环结束后 剩余的N都是由 digits位数 贡献的
+        // 每个 digits位数 都产生了 digits个数字； 因而我们求除求余就可以知道n对应的是第几个digits位数
+        int offset = (N - 1) / digits;
+        int begin = 1; // 用于计算最小的 digits位数
+        for (int i = 0; i < digits - 1; i++) {
+            begin *= 10;
+        }
+        int mod = (N - 1) % digits;
+        string target = to_string(offset + begin);
+        int ans = target[mod] - '0';
+
+        return ans;
     }
 };
-
-//拍照队形
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
-int main()
-{
-    int N, k, m, x, n;
-    string line;
-    cin >> N;
-    char ch;
-    vector<char> v;
-    x = N;
-    while (x--) {
-        cin >> ch;
-        cin >> noskipws;//在读入第一个字符后可设置读入空格
-        v.push_back(ch);
-    }
-    k = (N - 1) / 3;
-    m = 2 * k - 1;
-    x = 0, n = 1;
-    for (int i = n; i <= k; ++i)
-    {
-        for (int j = 1; j < n; ++j)
-            printf(" ");
-        cout << v[x++];
-        for (int j = 1; j <= m; ++j)
-            printf(" ");
-        cout << v[x++] << endl;
-        m -= 2;
-        n++;
-    }
-    for (int i = 1; i <= k + 1; ++i)
-    {
-        for (int j = 1; j <= k; ++j)
-            printf(" ");
-        cout << v[x++] << endl;
-    }
-    return 0;
-}
