@@ -1,68 +1,139 @@
-//重塑矩阵
-class Solution {
-public:
-    vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {
-        int row = mat.size();
-        int col = mat[0].size();
-        if (row * col != r * c)
-            return mat;
+//> 面值1元、4元、16元、64元共计4种硬币，以及面值1024元的纸币。现在小Y使用1024元的纸币购买了一件价值为N(0 < N≤1024)的商品，请问最少他会收到多少硬币
 
-        vector<vector<int>> ans(r, vector<int>(c, 0));
-        int ti = 0, tj = 0;
-        for (int i = 0; i < row; ++i)
+class Solution {
+public:
+    /**
+     *
+     * @param N int整型
+     * @return int整型
+     */
+    int GetCoinCount(int N) {
+        // write code here
+        N = 1024 - N;
+        int a, b, c, d;
+        a = N / 64;
+        b = N % 64 / 16;
+        c = N % 64 % 16 / 4;
+        d = N % 64 % 16 % 4;
+        return a + b + c + d;
+    }
+};
+
+
+//> 括号匹配
+class Solution {
+public:
+    /**
+     *
+     * @param s string字符串
+     * @return bool布尔型
+     */
+    bool IsValidExp(string s) {
+        // write code here
+        stack<int> sk;
+        for (int i = 0; i < s.size(); ++i)
         {
-            for (int j = 0; j < col; ++j)
+            if (s[i] == '(')
+                sk.push(')');
+            else if (s[i] == '{')
+                sk.push('}');
+            else if (s[i] == '[')
+                sk.push(']');
+            else if (sk.empty() || sk.top() != s[i])
+                return false;
+            else
+                sk.pop();
+        }
+        return sk.empty();
+    }
+};
+
+
+
+//> 24点
+class Solution {
+public:
+    /**
+     *
+     * @param arr int整型一维数组
+     * @param arrLen int arr数组长度
+     * @return bool布尔型
+     */
+    bool dfs(int index, int result, vector<int> res)
+    {
+        if (result == 24 && index == 4)
+        {
+            return true;
+        }
+        if (index >= 4)
+            return false;
+        for (int choose = 0; choose < 4; choose++)
+        {
+            switch (choose)
             {
-                ans[ti][tj++] = mat[i][j];
-                if (tj >= c)
-                {
-                    tj = 0;
-                    ti += 1;
-                }
+            case 0:
+                dfs(index + 1, result + res[index], res);
+                break;
+            case 1:
+                dfs(index + 1, result - res[index], res);
+                break;
+            case 2:
+                dfs(index + 1, result * res[index], res);
+                break;
+            case 3:
+                dfs(index + 1, result / res[index], res);
+                break;
             }
         }
+        return false;
+    }
+    bool Game24Points(int* arr, int arrLen) {
+        // write code here
+        for (int i = 0; i < arrLen; ++i)
+        {
+            res.emplace_back(*arr + i);
+        }
+        sort(res.begin(), res.end());
+        return dfs(0, 0, res);
+    }
+private:
+    vector<int> res;
+};
+
+
+
+
+
+//> 队列的最大值
+class MaxQueue {
+    queue<int> q;
+    deque<int> d;
+public:
+    MaxQueue() {
+    }
+
+    int max_value() {
+        if (d.empty())
+            return -1;
+        return d.front();
+    }
+
+    void push_back(int value) {
+        while (!d.empty() && d.back() < value) {
+            d.pop_back();
+        }
+        d.push_back(value);
+        q.push(value);
+    }
+
+    int pop_front() {
+        if (q.empty())
+            return -1;
+        int ans = q.front();
+        if (ans == d.front()) {
+            d.pop_front();
+        }
+        q.pop();
         return ans;
-    }
-};
-//杨辉三角
-class Solution {
-public:
-    vector<vector<int>> generate(int numRows) {
-        vector<vector<int>> ret(numRows);
-        for (int i = 0; i < numRows; i++)
-        {
-            ret[i].resize(i + 1);
-            ret[i][0] = 1;
-            ret[i][i] = 1;
-            for (int j = 1; j < i; j++)
-                ret[i][j] = ret[i - 1][j - 1] + ret[i - 1][j];
-        }
-        return ret;
-    }
-};
-//反转字符串中的单词
-class Solution {
-public:
-    string reverseWords(string s) {
-        int length = s.length();
-        int i = 0;
-        while (i < length)
-        {
-            int start = i;
-            while (s[i] != ' ' && i < length)
-            {
-                ++i;
-            }
-            int left = start, right = i - 1;
-            while (left < right)
-            {
-                swap(s[left], s[right]);
-                left++;
-                right--;
-            }
-            //while(s[i] == ' '&& i < length)
-            ++i;
-        }
-        return s;
     }
 };
