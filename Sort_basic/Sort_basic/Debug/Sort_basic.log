@@ -1,9 +1,0 @@
-﻿  Sort_Basic.c
-Sort_Basic.obj : error LNK2019: 无法解析的外部符号 _StackInit，函数 _QuickSortNor 中引用了该符号
-Sort_Basic.obj : error LNK2019: 无法解析的外部符号 _StackPush，函数 _QuickSortNor 中引用了该符号
-Sort_Basic.obj : error LNK2019: 无法解析的外部符号 _StackPop，函数 _QuickSortNor 中引用了该符号
-Sort_Basic.obj : error LNK2019: 无法解析的外部符号 _StackTop，函数 _QuickSortNor 中引用了该符号
-Sort_Basic.obj : error LNK2019: 无法解析的外部符号 _StackEmpty，函数 _QuickSortNor 中引用了该符号
-Sort_Basic.obj : error LNK2019: 无法解析的外部符号 _StackDestroy，函数 _QuickSortNor 中引用了该符号
-MSVCRTD.lib(exe_main.obj) : error LNK2019: 无法解析的外部符号 _main，函数 "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ) 中引用了该符号
-C:\Users\竹洋\source\repos\Sort_basic\Debug\Sort_basic.exe : fatal error LNK1120: 7 个无法解析的外部命令

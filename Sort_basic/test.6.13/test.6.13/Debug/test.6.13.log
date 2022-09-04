@@ -1,5 +1,0 @@
-﻿  test.6.13.cpp
-C:\Users\竹洋\source\repos\test.6.13\test.6.13\test.6.13.cpp(24,1): error C2247: “A::print”不可访问，因为“B”使用“private”从“A”继承
-C:\Users\竹洋\source\repos\test.6.13\test.6.13\test.6.13.cpp(6): message : 参见“A::print”的声明
-C:\Users\竹洋\source\repos\test.6.13\test.6.13\test.6.13.cpp(11): message : 参见“B”的声明
-C:\Users\竹洋\source\repos\test.6.13\test.6.13\test.6.13.cpp(3): message : 参见“A”的声明
